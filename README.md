@@ -51,7 +51,7 @@ Additionally, the project includes an **email validation system** to ensure user
 
 ## 🌐 Deployment
 The project is **deployed online**. Click below to visit:  
-[🔗 **Live Demo**](#)  
+[🔗 **https://jaivardhanrao.github.io/Final-Project-Sem-1/**](#)  
 (*Replace with the actual deployed link once available.*)
 
 ---
