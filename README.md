@@ -3,7 +3,7 @@
 
 ## 🌐 Deployment
 The project is **deployed online**. Click below to visit:  
-[🔗 **Job Tracker**](https://jaivardhanrao.github.io/Final-Project-Sem-1/)  
+[🔗 **Job Tracker**](https://scaler.jaivardhandrao.in/)
 
 ---
 
