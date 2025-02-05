@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Listings</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #222222;
+        --light: #f8fafc;
+        --secondary: #64748b;
+        --success: #22c55e;
+        --danger: #ef4444;
+        --warning: #f59e0b;
+        --info: #3b82f6;
+        --dark: #0f172a;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        animation: slideIn 2s ease-out forwards;
+      }
+
+      .navbar {
+        background-color: white;
+        animation: slideIn 2s ease-out forwards;
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--primary);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav-link {
+        text-decoration: none;
+        color: var(--secondary);
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        transition: all 0.2s;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 20px auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
+      .job-card {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .job-card img {
+        max-width: 80px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+      }
+      .job-card h3 {
+        font-size: 18px;
+        color: #333;
+        margin: 5px 0;
+        text-align: center;
+      }
+      .job-card p {
+        font-size: 14px;
+        color: #666;
+        text-align: center;
+      }
+      .job-card a {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 8px 12px;
+        background-color: #222222;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: 0.3s;
+        position: relative;
+
+      }
+      .job-card a:hover {
+        background-color: #222222;
+      }
+      @keyframes slideIn {
+        0% {
+          transform: translateY(5rem);
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* input style */
+
+      .filters-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 1.5rem;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+      }
+      .main_filters-container {
+        width: fit-content;
+        /* margin: 2rem auto; */
+        padding: 1.5rem;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        display: flex;
+        /* flex-direction: column; */
+        gap: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .filter-group {
+        flex: 1;
+        min-width: 250px;
+      }
+
+      .filter-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--dark);
+        font-weight: 500;
+      }
+
+      .styled-select,
+      .styled-input {
+        width: 80%;
+        padding: 0.8rem;
+        border: 2px solid var(--light);
+        border-radius: 8px;
+        background: white;
+        color: var(--primary);
+        font-size: 14px;
+        transition: all 0.3s ease;
+      }
+
+      .styled-select:focus,
+      .styled-input:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(34, 34, 34, 0.1);
+      }
+
+      .styled-select:hover {
+        border-color: var(--secondary);
+      }
+
+      .styled-input::placeholder {
+        color: var(--secondary);
+        opacity: 0.7;
+      }
+
+      @media (max-width: 768px) {
+        .filters-container {
+          flex-direction: column;
+          margin: 1rem;
+        }
+      }
+
+      .submitDataBtn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: none;
+        color: inherit;
+        border: 2px solid #222222;
+        border-radius: 1rem;
+        height: 2.6rem;
+        gap: 0.2rem;
+        padding: 1rem;
+        font: inherit;
+        cursor: pointer;
+        outline: inherit;
+        transition: all 200ms ease-in-out;
+      }
+      .submitDataBtn:hover {
+        background-color: #222222;
+        color: #f4f4f4;
+      }
+      .submitDataBtn i {
+        color: #222222;
+        transition: all 200ms ease-in-out;
+      }
+      .submitDataBtn:hover i {
+        color: #f4f4f4;
+      }
+
+      /* for loader animation */
+      /* HTML: <div class="loader"></div> */
+      .loader_parent{
+        display: none;
+      }
+      .loader {
+        /* display: none; */
+        width: 50px;
+        aspect-ratio: 1;
+        display: grid;
+        border: 4px solid #222222;
+        border-radius: 50%;
+        border-color: #cccccc00 #222222;
+        animation: l16 1s infinite linear;
+      }
+      .loader::before,
+      .loader::after {
+        content: "";
+        grid-area: 1/1;
+        margin: 2px;
+        border: inherit;
+        border-radius: 50%;
+      }
+      .loader::before {
+        border-color: #22222200 #222222;
+        animation: inherit;
+        animation-duration: 0.5s;
+        animation-direction: reverse;
+      }
+      .loader::after {
+        margin: 8px;
+      }
+      @keyframes l16 {
+        100% {
+          transform: rotate(1turn);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">JobTracker</div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Status Board</a>
+        <a href="#" class="nav-link active">Job Listings</a>
+      </div>
+    </nav>
+
+    <div class="filters-container">
+      <div class="main_filters-container">
+        <div class="filter-group">
+          <label for="country">Country</label>
+          <select id="country" class="styled-select">
+            <option value="">Select Country</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="profession">Profession</label>
+          <select id="profession" class="styled-select">
+            <option value="">Select Field</option>
+            <!-- Technology & IT -->
+            <option value="software">Software Engineering</option>
+            <option value="data">Data Science</option>
+            <option value="devops">DevOps Engineering</option>
+            <option value="cloud">Cloud Architecture</option>
+            <option value="ai">AI/Machine Learning</option>
+            <option value="frontend">Frontend Development</option>
+            <option value="backend">Backend Development</option>
+            <option value="mobile">Mobile Development</option>
+            <option value="security">Cyber Security</option>
+            <option value="qa">Quality Assurance</option>
+
+            <!-- Healthcare -->
+            <option value="doctor">Doctor</option>
+            <option value="nurse">Nurse</option>
+            <option value="pharmacist">Pharmacist</option>
+            <option value="dentist">Dentist</option>
+            <option value="paramedic">Paramedic</option>
+            <option value="radiologist">Radiologist</option>
+            <option value="physiotherapist">Physiotherapist</option>
+            <option value="veterinarian">Veterinarian</option>
+            <option value="nutritionist">Nutritionist</option>
+
+            <!-- Engineering & Technical -->
+            <option value="civil_engineer">Civil Engineer</option>
+            <option value="mechanical_engineer">Mechanical Engineer</option>
+            <option value="electrical_engineer">Electrical Engineer</option>
+            <option value="chemical_engineer">Chemical Engineer</option>
+            <option value="biomedical_engineer">Biomedical Engineer</option>
+            <option value="aerospace_engineer">Aerospace Engineer</option>
+            <option value="architect">Architect</option>
+
+            <!-- Business & Finance -->
+            <option value="accountant">Accountant</option>
+            <option value="financial_analyst">Financial Analyst</option>
+            <option value="investment_banker">Investment Banker</option>
+            <option value="marketing_manager">Marketing Manager</option>
+            <option value="hr_manager">Human Resources Manager</option>
+            <option value="business_consultant">Business Consultant</option>
+            <option value="sales_executive">Sales Executive</option>
+            <option value="entrepreneur">Entrepreneur</option>
+
+            <!-- Arts, Media & Communication -->
+            <option value="graphic_designer">Graphic Designer</option>
+            <option value="photographer">Photographer</option>
+            <option value="journalist">Journalist</option>
+            <option value="copywriter">Copywriter</option>
+            <option value="film_director">Film Director</option>
+            <option value="musician">Musician</option>
+            <option value="actor">Actor</option>
+
+            <!-- Education -->
+            <option value="teacher">Teacher</option>
+            <option value="professor">Professor</option>
+            <option value="education_consultant">Education Consultant</option>
+            <option value="librarian">Librarian</option>
+
+            <!-- Other Fields -->
+            <option value="chef">Chef</option>
+            <option value="pilot">Pilot</option>
+            <option value="lawyer">Lawyer</option>
+            <option value="police_officer">Police Officer</option>
+            <option value="firefighter">Firefighter</option>
+            <option value="social_worker">Social Worker</option>
+            <option value="astronomer">Astronomer</option>
+            <option value="psychologist">Psychologist</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="job-search">Job Title</label>
+          <input
+            type="text"
+            id="job-search"
+            class="styled-input"
+            placeholder="e.g. JavaScript Developer, Cook..."
+          />
+        </div>
+      </div>
+
+      <div class="submitData">
+        <button class="submitDataBtn">
+          <i class="bx bxs-search"></i>
+          <p>Find Jobs</p>
+        </button>
+      </div>
+      <div class="errorMessage">
+
+      </div>
+      <div class="loader_parent">
+        <div class="loader"></div>
+      </div>
+    </div>
+
+    <div class="container" id="job-list">
+    
+    </div>
+    <script src="joblist.js"></script>
+  </body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login to Job Tracker</title>
+    <style>
+      /* Color Variables for Easy Customization */
+      :root {
+        --primary: #222222;
+        --secondary: #f4f4f4;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: var(--primary);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .login-container {
+        background-color: var(--secondary);
+        border-radius: 15px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        width: 380px;
+        padding: 40px;
+        color: var(--text-color);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .login-container::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+          0deg,
+          transparent,
+          var(--accent),
+          var(--accent)
+        );
+        transform-origin: bottom right;
+        animation: borderRotate 10s linear infinite;
+        z-index: -1;
+      }
+
+      @keyframes borderRotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .login-header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .login-header h2 {
+        font-size: 24px;
+        color: var(--primary);
+        letter-spacing: 1px;
+      }
+
+      .input-group {
+        margin-bottom: 20px;
+      }
+
+      .input-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--primary);
+        font-size: 14px;
+      }
+
+      .input-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid var(--secondary);
+        border-radius: 8px;
+        background-color: var(--secondary);
+        color: var(--text-color);
+        outline: 1px solid var(--primary);
+        transition: border-color 0.3s ease;
+      }
+
+      .input-group input:focus {
+        border-color: var(--accent);
+      }
+
+      .login-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: var(--primary);
+        color: var(--secondary);
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .login-btn:hover {
+        background-color: #3a3a3a;
+      }
+
+      .forgot-password {
+        text-align: center;
+        margin-top: 15px;
+      }
+
+      .forgot-password a {
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 14px;
+      }
+
+      .error{
+        text-align: center;
+        margin-top: 1rem;
+      }
+
+      .loader_parent{
+        display: none;
+        justify-content: center;
+        scale : 0.6;
+      }
+      .loader {
+        /* display: none; */
+        width: 50px;
+        aspect-ratio: 1;
+        display: grid;
+        border: 4px solid #222222;
+        border-radius: 50%;
+        border-color: #cccccc00 #222222;
+        animation: l16 1s infinite linear;
+      }
+      .loader::before,
+      .loader::after {
+        content: "";
+        grid-area: 1/1;
+        margin: 2px;
+        border: inherit;
+        border-radius: 50%;
+      }
+      .loader::before {
+        border-color: #22222200 #222222;
+        animation: inherit;
+        animation-duration: 0.5s;
+        animation-direction: reverse;
+      }
+      .loader::after {
+        margin: 8px;
+      }
+      @keyframes l16 {
+        100% {
+          transform: rotate(1turn);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="login-header">
+        <h2>Welcome Back</h2>
+      </div>
+      <form id="loginForm">
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            required
+            autocomplete="off"
+          />
+        </div>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+        <button type="submit" class="login-btn">
+            Login
+        </button>
+      </form>
+      <div class="error"></div>
+      <div class="loader_parent">
+        <div class="loader"></div>
+      </div>
+      
+    </div>
+
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", async (e) => {
+            document.querySelector('.loader_parent').style.display = 'flex';
+          e.preventDefault();
+      
+          let email = document.querySelector("#email").value.trim();
+          let pw = document.querySelector("#password").value.trim();
+          let errorDiv = document.querySelector(".error");
+      
+          if (!email || !pw) {
+            errorDiv.innerText = "Provide a valid email and password!";
+            document.querySelector('.loader_parent').style.display = 'none';
+            return;
+          }
+      
+
+
+
+              let isValidEmail = await checkEmail(email);
+              
+              if (isValidEmail) {
+                errorDiv.innerText = "";
+                window.location.href = "/main.html";  
+                document.querySelector('.loader_parent').style.display = 'none';
+              } else {
+                errorDiv.innerText = "Invalid Email!";
+                document.querySelector('.loader_parent').style.display = 'none';
+              }
+
+        });
+      
+        async function checkEmail(email) {
+          try {
+            let response = await fetch(`https://api.api-ninjas.com/v1/validateemail?email=${email}`, {
+              method: "GET",
+              headers: {
+                "X-Api-Key": "xOdC6FRQNV0dsICy+AsWEA==FqlPcIjpC1eD7ZKs",
+                "Content-Type": "application/json"
+              }
+
+            });
+      
+            let result = await response.json();
+            document.querySelector(".error").innerText = "Success!";
+            return result.is_valid;
+            
+          } catch (error) {
+
+                console.error("Error:", error);
+                return false;
+          }
+        }
+      </script>
+  </body>
+</html>
