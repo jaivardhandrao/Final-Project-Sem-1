@@ -1,5 +1,12 @@
 # Job Application Tracker & Job Listings Platform
 
+
+## 🌐 Deployment
+The project is **deployed online**. Click below to visit:  
+[🔗 **Live Demo**](https://jaivardhanrao.github.io/Final-Project-Sem-1/)  
+
+---
+
 ## 🚀 Project Overview
 This project is a **job application tracker** with an integrated **Kanban board** and a job search platform. It allows users to track their job applications efficiently and find new job opportunities based on country, profession, and keyword. 
 
@@ -47,12 +54,6 @@ Additionally, the project includes an **email validation system** to ensure user
 - **Async/Await & Fetch API** for API calls
 - **Kanban board UI for job tracking**
 
----
-
-## 🌐 Deployment
-The project is **deployed online**. Click below to visit:  
-[🔗 **https://jaivardhanrao.github.io/Final-Project-Sem-1/**](#)  
-(*Replace with the actual deployed link once available.*)
 
 ---
 
